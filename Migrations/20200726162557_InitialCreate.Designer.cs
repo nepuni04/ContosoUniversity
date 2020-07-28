@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContosoUniversity.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20200726135317_InitialCreate")]
+    [Migration("20200726162557_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,7 +107,8 @@ namespace ContosoUniversity.Migrations
 
                     b.HasIndex("StudentID");
 
-                    b.HasIndex("CourseID", "StudentID");
+                    b.HasIndex("CourseID", "StudentID")
+                        .IsUnique();
 
                     b.ToTable("Enrollment");
                 });

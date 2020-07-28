@@ -171,7 +171,8 @@ namespace ContosoUniversity.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Enrollment_CourseID_StudentID",
                 table: "Enrollment",
-                columns: new[] { "CourseID", "StudentID" });
+                columns: new[] { "CourseID", "StudentID" },
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

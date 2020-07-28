@@ -105,7 +105,8 @@ namespace ContosoUniversity.Migrations
 
                     b.HasIndex("StudentID");
 
-                    b.HasIndex("CourseID", "StudentID");
+                    b.HasIndex("CourseID", "StudentID")
+                        .IsUnique();
 
                     b.ToTable("Enrollment");
                 });

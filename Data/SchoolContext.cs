@@ -36,7 +36,8 @@ namespace ContosoUniversity.Data
                 .HasKey(c => new { c.CourseID, c.InstructorID });
 
             modelBuilder.Entity<Enrollment>()
-                .HasIndex(e => new { e.CourseID, e.StudentID });
+                .HasIndex(e => new { e.CourseID, e.StudentID })
+                .IsUnique();
         }
 
     }
