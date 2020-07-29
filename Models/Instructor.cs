@@ -31,7 +31,7 @@ namespace ContosoUniversity.Models
         public string FullName { 
             get
             {
-                return LastName + " ," + FirstMidName;
+                return LastName + ", " + FirstMidName;
             } 
         }
 

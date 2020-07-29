@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
 
-namespace ContosoUniversity.Pages.Instructors
+namespace ContosoUniversity.Pages.Departments
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace ContosoUniversity.Pages.Instructors
         }
 
         [BindProperty]
-        public Instructor Instructor { get; set; }
+        public Department Department { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,10 @@ namespace ContosoUniversity.Pages.Instructors
                 return NotFound();
             }
 
-            Instructor = await _context.Instructors.FirstOrDefaultAsync(m => m.ID == id);
+            Department = await _context.Departments
+                .Include(d => d.Administrator).FirstOrDefaultAsync(m => m.DepartmentID == id);
 
-            if (Instructor == null)
+            if (Department == null)
             {
                 return NotFound();
             }
@@ -45,23 +46,13 @@ namespace ContosoUniversity.Pages.Instructors
                 return NotFound();
             }
 
-            Instructor = await _context.Instructors
-                .Include(i => i.CourseAssignments)
-                .SingleAsync(i => i.ID == id);
+            Department = await _context.Departments.FindAsync(id);
 
-            if (Instructor == null)
+            if (Department != null)
             {
-                return NotFound();
+                _context.Departments.Remove(Department);
+                await _context.SaveChangesAsync();
             }
-
-            var departments = await _context.Departments
-                .Where(d => d.InstructorID == id)
-                .ToListAsync();
-
-            departments.ForEach(d => d.InstructorID = null);
-
-            _context.Instructors.Remove(Instructor);
-            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

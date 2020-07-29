@@ -19,11 +19,13 @@ namespace ContosoUniversity.Models
         public decimal Budget { get; set; }
 
         [DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
         public int? InstructorID { get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
         // Navigation properties for Department Entity
         public Instructor Administrator { get; set; }

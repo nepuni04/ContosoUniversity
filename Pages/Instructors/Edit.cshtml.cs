@@ -45,8 +45,6 @@ namespace ContosoUniversity.Pages.Instructors
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(int? id, string[] selectedCourses)
         {
             if (id == null)
@@ -58,7 +56,7 @@ namespace ContosoUniversity.Pages.Instructors
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.CourseAssignments)
                     .ThenInclude(i => i.Course)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (instructorToUpdate == null)
             {
